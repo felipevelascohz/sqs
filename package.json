@@ -1,11 +1,12 @@
 {
   "name": "@felipevelascohz/sqs",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf lib/ && tsc",
-    "test": "jest"
+    "test": "jest",
+    "publish-package": "npm run build && npm publish"
   },
   "files": [
     "lib/**/*"
