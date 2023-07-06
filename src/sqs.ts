@@ -2,6 +2,7 @@ import { Construct } from 'constructs';
 import * as cdk from 'aws-cdk-lib';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as kms from 'aws-cdk-lib/aws-kms';
 
 interface SqsProps {
     sourceRoles: string[];
@@ -16,9 +17,14 @@ export class Sqs extends cdk.Stack {
     public constructor(scope: Construct, id: string, props: SqsProps){
         super(scope, id + 'Sqs', props)
 
+        const encryptionKey = new kms.Key(this, 'Key', {
+            enableKeyRotation: true,
+          });
+
         const queue = new sqs.Queue(this, id, {
-            encryption: sqs.QueueEncryption.SQS_MANAGED,
+            encryption: sqs.QueueEncryption.KMS_MANAGED,
             enforceSSL: true,
+            encryptionMasterKey: encryptionKey
         });
 
         for (var i = 0; i < props.sourceRoles.length; i++) {
@@ -31,7 +37,7 @@ export class Sqs extends cdk.Stack {
                         'SQS:ReceiveMessage'
                     ],
                     principals: [new iam.ArnPrincipal(props.sourceRoles[i])],
-                    resources: [queue.queueArn],
+                    resources: [queue.queueArn]
                 })
             );
         };
@@ -39,13 +45,13 @@ export class Sqs extends cdk.Stack {
         new cdk.CfnOutput(this, 'URL', {
             value: queue.queueUrl,
             description: 'The URL of SQS',
-            exportName: 'sqsURL',
+            exportName: 'sqsURL'
           });
 
           new cdk.CfnOutput(this, 'ARN', {
             value: queue.queueArn,
             description: 'The ARN of SQS',
-            exportName: 'sqsARN',
+            exportName: 'sqsARN'
           });
 
     }
