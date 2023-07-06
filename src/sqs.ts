@@ -43,7 +43,7 @@ export class Sqs extends cdk.Stack {
           });
 
           new cdk.CfnOutput(this, 'ARN', {
-            value: queue.queueUrl,
+            value: queue.queueArn,
             description: 'The ARN of SQS',
             exportName: 'sqsARN',
           });
