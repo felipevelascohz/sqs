@@ -17,8 +17,30 @@ export class Sqs extends cdk.Stack {
     public constructor(scope: Construct, id: string, props: SqsProps){
         super(scope, id + 'Sqs', props)
 
+        const policyStatement = new iam.PolicyStatement({
+            actions: [
+                "kms:Create*",
+                "kms:Describe*",
+                "kms:Enable*",
+                "kms:List*",
+                "kms:Put*",
+                "kms:Update*",
+                "kms:Revoke*",
+                "kms:Disable*",
+                "kms:Get*",
+                "kms:Delete*",
+                "kms:ScheduleKeyDeletion",
+                "kms:CancelKeyDeletion"
+            ],
+            resources: ['*'],
+            principals: [new iam.AccountRootPrincipal()]
+        });
+
         const encryptionKey = new kms.Key(this, 'Key', {
             enableKeyRotation: true,
+            policy: new iam.PolicyDocument({
+                statements: [policyStatement]
+            })
           });
 
         const queue = new sqs.Queue(this, id, {
