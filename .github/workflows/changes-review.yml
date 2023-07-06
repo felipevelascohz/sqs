@@ -1,7 +1,7 @@
 name: 'Changes Review'
 on:
     pull_request:
-        branches: ['master']
+        branches: ['main']
 jobs:
     cancel-workflows:
         permissions:
