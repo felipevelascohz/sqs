@@ -21,7 +21,8 @@
   "keywords": [
     "AWS",
     "CDK",
-    "SQS"
+    "SQS",
+    "BaasKit"
   ],
   "author": "Felipe Velasco",
   "license": "ISC",

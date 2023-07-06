@@ -7,7 +7,7 @@ const iniciativa :string = 'IdSbxFelipeVelasco';
 const provider = {
   account: process.env.CDK_DEFAULT_ACCOUNT, 
   region: process.env.CDK_DEFAULT_REGION 
-}
+};
 
 const app = new cdk.App();
 
