@@ -9,7 +9,8 @@
     "publish-package": "npm run build && npm publish && rm -rf sqs.* index.*"
   },
   "files": [
-    "lib/**/*"
+    "sqs.*",
+    "index.*"
   ],
   "repository": {
     "type": "git",
