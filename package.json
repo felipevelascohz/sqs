@@ -38,7 +38,6 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.86.0",
-    "constructs": "^10.0.0",
-    "@felipevelascohz/kms": "^1.0.3"
+    "constructs": "^10.0.0"
   }
 }
