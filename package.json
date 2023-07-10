@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf lib/ && tsc",
+    "build": "rm -rf sqs.* index.* && tsc",
     "test": "jest",
-    "publish-package": "npm run build && npm publish"
+    "publish-package": "npm run build && npm publish && rm -rf sqs.* index.*"
   },
   "files": [
     "lib/**/*"
@@ -37,6 +37,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.86.0",
-    "constructs": "^10.0.0"
+    "constructs": "^10.0.0",
+    "@felipevelascohz/kms": "^1.0.3"
   }
 }

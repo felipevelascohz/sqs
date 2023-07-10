@@ -11,7 +11,10 @@ const provider = {
 
 const app = new cdk.App();
 
-new Sqs(app, iniciativa, {
-  sourceRoles: [],
+const stack = new cdk.Stack(app, iniciativa, {
   env: provider
-});
+})
+
+new Sqs(stack, iniciativa, {})
+
+app.synth();

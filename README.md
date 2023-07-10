@@ -1,28 +1,26 @@
 # AWS SQS lib
 
 Library created by:
- 
- - Name: Felipe Velasco  
- - Org: BaasKit
 
- # Usage
+- Name: Felipe Velasco
+
+## Usage
+
 Code example:
 
 ``` typescript
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { Sqs } from '@felipevelascohz/sqs/lib/';
-
-const iniciativa: string = 'IdSbxFelipeVelasco';
+import { Sqs } from '../src/sqs';
+const iniciativa :string = 'IdSbxFelipeVelasco';
 const provider = {
   account: process.env.CDK_DEFAULT_ACCOUNT, 
   region: process.env.CDK_DEFAULT_REGION 
 };
-
 const app = new cdk.App();
-
-new Sqs(app, iniciativa, {
-  sourceRoles: [],
+const stack = new cdk.Stack(app, iniciativa, {
   env: provider
-});
+})
+new Sqs(stack, iniciativa, {})
+app.synth();
 ```
