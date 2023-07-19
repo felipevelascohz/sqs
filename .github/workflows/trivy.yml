@@ -6,8 +6,13 @@ on:
       - develop
   pull_request:
 jobs:
-  build:
-    name: Build
+  scan-code-trivy:
+    permissions:
+        contents: read
+        security-events: write
+        actions: read
+        pull-requests: write
+    name: scan-code-trivy
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
@@ -32,7 +37,8 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
-      - name: Upload Trivy scan results to GitHub Security tab
+      - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
+        if: success() || failure() && github.event_name != 'pull_request'
         with:
           sarif_file: 'trivy-results.sarif'
