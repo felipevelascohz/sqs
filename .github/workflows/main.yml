@@ -2,8 +2,6 @@ name: "Sync GHAS to Jira"
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/10 * * * *'    # trigger synchronization every 10 minutes
 permissions:
   contents: read
   security-events: write
