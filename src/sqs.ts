@@ -2,11 +2,11 @@ import { Construct } from 'constructs';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
-interface SqsConfig {
+interface SqsPolicyConfig {
+    props?: sqs.QueueProps;
     sourceRoles?: string[];
     policyActions?: string[];
-    disableRootPrincipal?: boolean;
-    queueName?: string;   
+    disableRootPrincipal?: boolean;   
 }
 
 const actions: string[] = [
@@ -17,20 +17,10 @@ const actions: string[] = [
 ]
 
 export class Sqs extends sqs.Queue {
-    public constructor(scope: Construct, id: string, config: SqsConfig, props?: sqs.QueueProps){
-        const { queueName = id } = config;
-        const DLQ = new sqs.Queue(scope, id + 'DLQ', {
-            queueName: queueName + 'dlq',
-            enforceSSL: true
-        });
+    public constructor(scope: Construct, id: string, config: SqsPolicyConfig, props?: sqs.QueueProps){
         super(scope, id, {
-            queueName: queueName + 'queue',
             encryption: sqs.QueueEncryption.SQS_MANAGED,
             enforceSSL: true,
-            deadLetterQueue: {
-                queue: DLQ,
-                maxReceiveCount: 10
-            },
             ...props
         });
 
