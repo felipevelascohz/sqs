@@ -56,13 +56,6 @@ export class Sqs extends sqs.Queue {
                     resources: [this.queueArn]
                 })
             );
-            DLQ.addToResourcePolicy(
-                new iam.PolicyStatement({
-                    actions: policyActions,
-                    principals: [new iam.ArnPrincipal(sourceRoles[i])],
-                    resources: [this.queueArn]
-                })
-            );
         };
     }
 };
